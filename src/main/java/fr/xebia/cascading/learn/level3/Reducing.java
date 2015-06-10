@@ -29,7 +29,19 @@ public class Reducing {
 	 * @see http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html
 	 */
 	public static FlowDef aggregate(Tap<?, ?, ?> source, Tap<?, ?, ?> sink) {
-		return null;
+		Pipe countWords = new Pipe("countWords");
+		
+		Fields toCount = new Fields("word", String.class);
+		countWords = new GroupBy(countWords, toCount);
+		
+		Fields countField = new Fields("count", String.class);
+		countWords = new Every(countWords, Fields.GROUP, new Count(countField), Fields.ALL);
+		
+		return FlowDef
+		    .flowDef()
+		    .addSource(countWords, source)
+		    .addTail(countWords)
+		    .addSink(countWords, sink);
 	}
 	
 	/**
@@ -42,6 +54,16 @@ public class Reducing {
 	 * @see http://docs.cascading.org/cascading/2.5/userguide/html/ch08s08.html
 	 */
 	public static FlowDef efficientlyAggregate(Tap<?, ?, ?> source, Tap<?, ?, ?> sink) {
-		return null;
+		Pipe countWords = new Pipe("countWords");
+		
+		Fields toCount = new Fields("word", String.class);
+		Fields count = new Fields("count", String.class);
+		countWords = new CountBy(countWords, toCount, count);
+		
+		return FlowDef
+		    .flowDef()
+		    .addSource(countWords, source)
+		    .addTail(countWords)
+		    .addSink(countWords, sink);
 	}
 }

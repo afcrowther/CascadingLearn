@@ -23,7 +23,7 @@ public class BasicSchemaManipulation {
    */
   public static FlowDef discardField(Tap<?, ?, ?> source, Tap<?, ?, ?> sink) {
     Pipe discard = new Pipe("discard");
-    Fields toDiscard = new Fields("discardme");
+    Fields toDiscard = new Fields("discardme", String.class);
     discard = new Discard(discard, toDiscard);
 
     return FlowDef
@@ -41,7 +41,7 @@ public class BasicSchemaManipulation {
    */
   public static FlowDef retainField(Tap<?, ?, ?> source, Tap<?, ?, ?> sink) {
     Pipe retain = new Pipe("retain");
-    Fields toRetain = new Fields("line");
+    Fields toRetain = new Fields("line", String.class);
     retain = new Retain(retain, toRetain);
     
     return FlowDef

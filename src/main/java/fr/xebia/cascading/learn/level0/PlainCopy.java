@@ -22,9 +22,9 @@ public class PlainCopy {
 	 */
 	public static FlowDef createFlowDefUsing(Tap<?, ?, ?> source, Tap<?, ?, ?> sink) {
 		Pipe pipe = new Pipe("plainCopy");
-		return FlowDef.flowDef()//
-				.addSource(pipe, source) //
-				.addTail(pipe)//
+		return FlowDef.flowDef()
+				.addSource(pipe, source)
+				.addTail(pipe)
 				.addSink(pipe, sink);
 	}
 
